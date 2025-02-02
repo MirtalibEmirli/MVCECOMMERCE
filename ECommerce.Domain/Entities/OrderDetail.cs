@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MVCECOMMERCE.Domain.Abstracts;
+using System;
 using System.Collections.Generic;
 
 namespace MVCECOMMERCE.Domain.Entities;
 
-public partial class OrderDetail
+public partial class OrderDetail: IEntity
 {
     public int OrderId { get; set; }
 
-    public int ProductId { get; set; }
+    public int ProductId { get; set; } = 0;
 
     public decimal UnitPrice { get; set; }
 

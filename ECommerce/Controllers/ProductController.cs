@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ECommerce.Models;
+using Microsoft.AspNetCore.Mvc;
 using MVCECOMMERCE.Application.Abstarcts;
 using MVCECOMMERCE.Application.Concrete;
 using MVCECOMMERCE.Domain.Entities;
@@ -9,7 +10,7 @@ public class ProductController(IProductService prouductService, ICategoryService
 {
     private readonly IProductService _productService = prouductService;
     private readonly ICategoryService _categoryService = categoryService;
-
+    public EditProductViewModel EditProductViewModel { get; set; }  
     public IActionResult Index(int page = 1, int categoryId = 0)
     {
         int pageSize = 10;
@@ -41,6 +42,43 @@ public class ProductController(IProductService prouductService, ICategoryService
     public IActionResult Add(ProductAddViewModel model)
     {
         _productService.Add(model.Product);
+        return RedirectToAction("Index");
+    }
+    [HttpGet]
+    public IActionResult EditProduct(int id=0)
+    {
+        if (id != 0)
+        {
+            var product = _productService.GetById(id);
+            if (product == null) { return NotFound(); }
+            EditProductViewModel = new EditProductViewModel { Product = product };  
+            return View(EditProductViewModel);
+
+        }
+        return RedirectToAction("Index");
+
+    }
+
+    [HttpPost]
+    public IActionResult EditProduct(EditProductViewModel editProductViewModel)
+    {
+        if (!ModelState.IsValid) { return View(editProductViewModel); }
+        var product = editProductViewModel.Product; 
+
+        _productService.Update(product);    
+
+        return RedirectToAction("Index");
+    }
+  public IActionResult DeleteProduct(int id=0)
+    {
+        if (id!=0)
+        {
+            _productService.Delete(id);
+        }
+        return RedirectToAction("Index");
+    }
+    public IActionResult Back()
+    {
         return RedirectToAction("Index");
     }
 

@@ -2,6 +2,7 @@
 using ECommerce.Application.Abstarcts;
 using ECommerce.Application.Concrete;
 using ECommerce.DataAcces.Abstracts;
+using ECommerce.DataAcces.Concrete.EfEntityFramework;
 using Microsoft.EntityFrameworkCore;
 using MVCECOMMERCE.Application.Abstarcts;
 using MVCECOMMERCE.Application.Concrete;
@@ -21,10 +22,10 @@ builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddScoped<IProductDal,EFProductDal>(); 
 builder.Services.AddScoped<ICategoryDal,EFCategoryDal>(); 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<ICustomerDal,ICustomerDal>();
+builder.Services.AddScoped<ICustomerDal,EfCustomerDal>();
 
 builder.Services.AddSession();
-builder.Services.AddSingleton< IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 ////
 var app = builder.Build();
 
