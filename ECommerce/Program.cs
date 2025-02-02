@@ -1,4 +1,7 @@
 
+using ECommerce.Application.Abstarcts;
+using ECommerce.Application.Concrete;
+using ECommerce.DataAcces.Abstracts;
 using Microsoft.EntityFrameworkCore;
 using MVCECOMMERCE.Application.Abstarcts;
 using MVCECOMMERCE.Application.Concrete;
@@ -15,8 +18,11 @@ builder.Services.AddDbContext<EcommerceContext>(opt =>
 opt.UseSqlServer(conn));
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<IProductService,ProductService>();    
-builder.Services.AddScoped<IProductDal,EFProductDal>();
-builder.Services.AddScoped<ICategoryDal,EFCategoryDal>();
+builder.Services.AddScoped<IProductDal,EFProductDal>(); 
+builder.Services.AddScoped<ICategoryDal,EFCategoryDal>(); 
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICustomerDal,ICustomerDal>();
+
 builder.Services.AddSession();
 builder.Services.AddSingleton< IHttpContextAccessor, HttpContextAccessor>();
 ////

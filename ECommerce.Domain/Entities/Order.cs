@@ -1,9 +1,10 @@
-﻿using System;
+﻿using MVCECOMMERCE.Domain.Abstracts;
+using System;
 using System.Collections.Generic;
 
 namespace MVCECOMMERCE.Domain.Entities;
 
-public partial class Order
+public partial class Order:IEntity
 {
     public int OrderId { get; set; }
 
