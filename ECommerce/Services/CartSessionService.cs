@@ -4,7 +4,7 @@ using MVCECOMMERCE.Domain.Models;
 
 namespace ECommerce;
 
-    public class CartSessionService(IHttpContextAccessor contextAccessor) : ICartSessionService
+public class CartSessionService(IHttpContextAccessor contextAccessor) : ICartSessionService
     {
         private readonly IHttpContextAccessor _contextAccessor = contextAccessor;
 

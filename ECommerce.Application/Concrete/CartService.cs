@@ -14,7 +14,7 @@ public class CartService : ICartService
     public void AddToCart(Cart cart, Product product)
     {
         CartLine line = cart.CartLines.FirstOrDefault(c => c.Product.ProductId == product.ProductId);
-        if (line == null)
+        if (line != null)
         {
             line.Quantity++;
         }

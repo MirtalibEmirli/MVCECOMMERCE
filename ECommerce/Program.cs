@@ -1,4 +1,5 @@
 
+using ECommerce;
 using ECommerce.Application.Abstarcts;
 using ECommerce.Application.Concrete;
 using ECommerce.DataAcces.Abstracts;
@@ -13,6 +14,7 @@ using MVCECOMMERCE.Domain.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 var conn = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<EcommerceContext>(opt =>
@@ -23,8 +25,9 @@ builder.Services.AddScoped<IProductDal,EFProductDal>();
 builder.Services.AddScoped<ICategoryDal,EFCategoryDal>(); 
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICustomerDal,EfCustomerDal>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddSingleton<ICartSessionService,CartSessionService>();
 
-builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 ////
 var app = builder.Build();
@@ -43,6 +46,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
